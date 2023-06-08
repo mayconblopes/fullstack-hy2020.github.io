@@ -7,9 +7,9 @@ lang: ptbr
 
 <div class="content">
 
-Vamos expandir a aplicação de modo que as notas sejam armazenadas no backend. Usaremos o [json-server](/en/part2/getting_data_from_server), familiar desde a parte 2.
+Vamos expandir a aplicação de modo que as notas sejam armazenadas no backend. Usaremos o [json-server](/ptbr/part2/obtendo_dados_do_servidor), que nos é familiar desde a parte 2.
 
-O estado inicial do banco de dados é armazenado no arquivo <i>db.json<i>, que está localizado na raiz do projeto:
+O estado inicial do banco de dados é armazenado no arquivo <i>db.json</i>, que está localizado na raiz do projeto:
 
 ```json
 {
@@ -213,12 +213,12 @@ noteService.getAll().then(notes =>
 )
 ```
 
-> **Obs:** Por que não usamos `await` em vez de promessas e manipuladores de
-> eventos registrados nos métodos `then`?
+> **Obs:** Por que não usamos await em vez de promessas e manipuladores de
+> eventos registrados nos métodos then?
 >
-> O `await` só funciona dentro de funções `async`, e o código em `index.js` não
+> O await só funciona dentro de funções <i>async</i>, e o código em <i>index.js</i> não
 > está dentro de uma função. Portanto, devido à natureza simples da operação,
-> abstemos-nos de usar `async` desta vez.
+> abstemos-nos de usar <i>async</i> desta vez.
 
 No entanto, decidimos mover a inicialização das notas para o componente <i>App</i> e, como de costume, ao buscar dados de um servidor, usaremos o <i>hook effect</i>.
 
@@ -252,7 +252,7 @@ const App = () => {
 export default App
 ```
 
-O uso do hook _useEffect_  causa um aviso do eslint:
+O uso do hook useEffect  causa um aviso do eslint:
 
 ![vscode warning useEffect missing dispatch dependency](../../images/6/26ea.png)
 
@@ -270,8 +270,8 @@ const App = () => {
 }
 ```
 
-Agora a variável `dispatch`, que definimos no componente _App_, que é praticamente a função de despacho da store do Redux, foi adicionada ao array que o `useEffect` recebe como parâmetro.
-**Se** o valor da variável `dispatch` mudar durante a execução, o effect seria executado novamente. No entanto, isso não pode ocorrer em nossa aplicação, portanto, o aviso é desnecessário.
+Agora a variável <i>dispatch</i>, que definimos no componente _App_, que é praticamente a função de despacho da store do Redux, foi adicionada ao array que o useEffect recebe como parâmetro.
+**Se** o valor da variável dispatch mudar durante a execução, o effect seria executado novamente. No entanto, isso não pode ocorrer em nossa aplicação, portanto, o aviso é desnecessário.
 
 Outra maneira de se livrar do aviso seria desabilitar o ESlint nessa linha:
 
@@ -420,11 +420,11 @@ const NewNote = () => {
 }
 ```
 
-Nessa implementação, ambos os componentes despachariam uma action sem precisar saber sobre a comunicação com o servidor que acontece nos bastidores. Esse tipo de "ação assíncrona" pode ser implementado usando a biblioteca [Redux Thunk](https://github.com/reduxjs/redux-thunk). O uso dessa biblioteca não requer nenhuma configuração adicional, ou mesmo instalação, quando a store Redux é criada usando a função <em>configureStore</em>, do Redux Toolkit.
+Nessa implementação, ambos os componentes despachariam uma action sem precisar saber sobre a comunicação com o servidor que acontece nos bastidores. Esse tipo de <i>async actions</i> pode ser implementado usando a biblioteca [Redux Thunk](https://github.com/reduxjs/redux-thunk). O uso dessa biblioteca não requer nenhuma configuração adicional, ou mesmo instalação, quando a store Redux é criada usando a função <em>configureStore</em>, do Redux Toolkit.
 
 Com o Redux Thunk, é possível implementar <i>action creators</i> que retornam uma função em vez de um objeto. A função recebe os métodos <em>dispatch</em> e <em>getState</em> da store do Redux como parâmetros. Isso permite, por exemplo, a implementação de <i>action creators</i> assíncronos, que aguardam a conclusão de uma determinada operação assíncrona e, em seguida, despacham uma ação que altera o estado da store.
 
-Podemos definir um <i>action creator</i> chamado <em>initializeNotes</em> que inicializa as notas com base nos dados recebidos do servidor:
+Podemos definir um action creator chamado <em>initializeNotes</em> que inicializa as notas com base nos dados recebidos do servidor:
 
 ```js
 // ...
